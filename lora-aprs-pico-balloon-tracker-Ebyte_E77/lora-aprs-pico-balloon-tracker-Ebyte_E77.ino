@@ -5,11 +5,16 @@
 #include <RadioLib.h> //https://github.com/jgromes/RadioLib
 #include <avr/dtostrf.h>
 
+#ifdef ARDUINO_LORA_E5_DEV_BOARD
+
+#else
 // SX1268 has the following connections:
 #define nssPin 8
 #define rstPin 9
 #define dio1Pin 3
 #define busyPin 2
+
+#endif
 
 #define BattPin A5
 #define GpsPwr  12
@@ -18,8 +23,12 @@
 
 SFE_UBLOX_GPS myGPS;
 LOLIN_HP303B hp303b;
-SX1268 radio = new Module(nssPin, dio1Pin, rstPin, busyPin);
 
+#ifdef ARDUINO_LORA_E5_DEV_BOARD
+STM32WLx radio = new STM32WLx_Module(); 
+#else
+SX1268 radio = new Module(nssPin, dio1Pin, rstPin, busyPin);
+#endif
 //#define DEVMODE // Development mode. Uncomment to enable for debugging.
 
 //************************** General Settings ********************
