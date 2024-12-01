@@ -17,7 +17,7 @@
 #endif
 
 #define BattPin A5
-#define GpsPwr  12
+#define GpsPwr  12  // this turns on/off gps using mosfet switch
 #define GpsON  digitalWrite(GpsPwr, LOW);
 #define GpsOFF digitalWrite(GpsPwr, HIGH);
 
@@ -26,6 +26,24 @@ LOLIN_HP303B hp303b;
 
 #ifdef ARDUINO_LORA_E5_DEV_BOARD
 STM32WLx radio = new STM32WLx_Module(); 
+
+//APRSClient aprs(&radio);  // had this in my code, but its not in this code. May not be needed
+
+// set RF switch configuration for EBytes E77 dev board
+// PB3 is an LED - activates while transmitting
+// NOTE: other boards may be different!
+//       Some boards may not have either LP or HP.
+//       For those, do not set the LP/HP entry in the table.
+static const uint32_t rfswitch_pins[] =
+                         {PA6,  PA7,  PB3, RADIOLIB_NC, RADIOLIB_NC};
+static const Module::RfSwitchMode_t rfswitch_table[] = {
+  {STM32WLx::MODE_IDLE,  {LOW,  LOW,  LOW}},
+  {STM32WLx::MODE_RX,    {LOW, HIGH, LOW}},
+  {STM32WLx::MODE_TX_LP, {HIGH, LOW, HIGH}},
+  {STM32WLx::MODE_TX_HP, {HIGH, LOW, HIGH}},
+  END_OF_MODE_TABLE,
+};
+
 #else
 SX1268 radio = new Module(nssPin, dio1Pin, rstPin, busyPin);
 #endif
