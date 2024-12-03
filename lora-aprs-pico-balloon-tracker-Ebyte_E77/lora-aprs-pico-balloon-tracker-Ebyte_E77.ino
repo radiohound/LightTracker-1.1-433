@@ -5,17 +5,6 @@
 #include <RadioLib.h> //https://github.com/jgromes/RadioLib
 #include <avr/dtostrf.h>
 
-#ifdef ARDUINO_LORA_E5_DEV_BOARD
-
-#else
-// SX1268 has the following connections:
-#define nssPin 8
-#define rstPin 9
-#define dio1Pin 3
-#define busyPin 2
-
-#endif
-
 #define BattPin A5
 #define GpsPwr  12  // this turns on/off gps using mosfet switch
 #define GpsON  digitalWrite(GpsPwr, LOW);
@@ -45,6 +34,12 @@ static const Module::RfSwitchMode_t rfswitch_table[] = {
 };
 
 #else
+// SX1268 has the following connections:
+#define nssPin 8
+#define rstPin 9
+#define dio1Pin 3
+#define busyPin 2
+
 SX1268 radio = new Module(nssPin, dio1Pin, rstPin, busyPin);
 #endif
 //#define DEVMODE // Development mode. Uncomment to enable for debugging.
@@ -65,7 +60,7 @@ uint8_t spreadingFactor = 12;
 uint8_t codingRate = 5;
 int8_t outputPower = 22;
 uint16_t preambleLength = 8;
-int8_t CRC = 1;
+int8_t myCRC = 1;
 String header = "<\xff\x01";//Header for https://github.com/lora-aprs/LoRa_APRS_iGate compatibility
 String wide ="WIDE1-1";
 //************************** uBlox GPS  Settings ********************
@@ -657,7 +652,7 @@ void setupUBloxDynamicModel() {
   }
 
   // enable CRC
-  if (radio.setCRC(CRC) == RADIOLIB_ERR_INVALID_CRC_CONFIGURATION) {
+  if (radio.setCRC(myCRC) == RADIOLIB_ERR_INVALID_CRC_CONFIGURATION) {
     SerialUSB.println(F("Selected CRC is invalid for this module!"));
     while (true);
   }
