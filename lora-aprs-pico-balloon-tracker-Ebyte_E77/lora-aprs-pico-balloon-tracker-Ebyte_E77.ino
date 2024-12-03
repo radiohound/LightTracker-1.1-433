@@ -1,9 +1,14 @@
 #include "SparkFun_Ublox_Arduino_Library.h" //https://github.com/sparkfun/SparkFun_Ublox_Arduino_Library
-#include <MemoryFree.h>; //https://github.com/mpflaga/Arduino-MemoryFree
-#include <Wire.h>
 #include <LOLIN_HP303B.h> //https://github.com/hakkican/HP303B_Library
 #include <RadioLib.h> //https://github.com/jgromes/RadioLib
-#include <avr/dtostrf.h>
+#ifdef ARDUINO_LORA_E5_DEV_BOARD
+
+#else
+  #include <MemoryFree.h>; //https://github.com/mpflaga/Arduino-MemoryFree
+  #include <Wire.h>
+  #include <avr/dtostrf.h>
+
+#endif
 
 #define BattPin A5
 #define GpsPwr  12  // this turns on/off gps using mosfet switch
