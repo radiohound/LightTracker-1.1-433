@@ -1,3 +1,7 @@
+// modified to allow the use of the very miniature Ebyte E77 mcu & radio module all in one: STM32WLE5CCU6 
+// and the miniature Ublox CAM-M8Q gps module for a very small (and light) form factor
+
+
 #include "SparkFun_Ublox_Arduino_Library.h" //https://github.com/sparkfun/SparkFun_Ublox_Arduino_Library
 #include <LOLIN_HP303B.h> //https://github.com/hakkican/HP303B_Library
 #include <RadioLib.h> //https://github.com/jgromes/RadioLib
