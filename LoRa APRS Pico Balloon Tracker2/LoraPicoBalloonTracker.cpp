@@ -1,7 +1,6 @@
 // modified to allow the use of the very miniature Ebyte E77 mcu & radio module all in one: STM32WLE5CCU6 
 // and the miniature Ublox CAM-M8Q gps module for a very small (and light) form factor
 
-
 /*
  Read NMEA sentences over I2C using Ublox module SAM-M8Q, NEO-M8P, ZED-F9P, etc
  By: Nathan Seidle
@@ -10,7 +9,6 @@
  License: MIT. See license file for more information but you can
  basically do whatever you want with this code.
 
-
  This example reads the NMEA setences from the Ublox module over I2c and outputs
  them to the serial port
   Feel like supporting open source hardware?
@@ -18,7 +16,6 @@
  ZED-F9P RTK2: https://www.sparkfun.com/products/15136
  NEO-M8P RTK: https://www.sparkfun.com/products/15005
  SAM-M8Q: https://www.sparkfun.com/products/15106
-
 
  Hardware Connections:
  Plug a Qwiic cable into the GPS and a BlackBoard
